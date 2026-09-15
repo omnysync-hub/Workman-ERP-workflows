@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HVAC Business System — Plain English Guide & Roadmap</title>
+<style>
+  :root{
+    --navy:#0f172a;
+    --slate:#475569;
+    --light-bg:#f8fafc;
+    --card-bg:#ffffff;
+    --border:#e2e8f0;
+    --blue:#2563eb;
+    --green:#16a34a;
+    --amber:#d97706;
+    --purple:#7c3aed;
+
+    --dispatcher:#0284c7;
+    --technician:#d97706;
+    --accountant:#0d9488;
+    --admin:#0f172a;
+    --store:#475569;
+    --hr:#7c3aed;
+    --callcenter:#e11d48;
+    --sales:#16a34a;
+
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    padding:0;
+    font-family:var(--font);
+    background:var(--light-bg);
+    color:var(--navy);
+    line-height:1.6;
+  }
+
+  /* Top Navigation Bar */
+  .top-bar{
+    position:sticky;
+    top:0;
+    background:#ffffff;
+    border-bottom:1px solid var(--border);
+    padding:12px 24px;
+    z-index:100;
+    box-shadow:0 1px 4px rgba(0,0,0,0.04);
+  }
+  .top-bar-inner{
+    max-width:1160px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand-tag{
+    font-weight:800;
+    font-size:14px;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand-tag span{
+    background:#e0f2fe;
+    color:#0369a1;
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:20px;
+    font-weight:700;
+  }
+  .nav-pills{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:4px 0;
+  }
+  .nav-pill{
+    text-decoration:none;
+    font-size:12px;
+    font-weight:600;
+    color:var(--slate);
+    background:#f1f5f9;
+    padding:6px 11px;
+    border-radius:6px;
+    white-space:nowrap;
+    transition:all 0.15s;
+  }
+  .nav-pill:hover{
+    background:#e2e8f0;
+    color:var(--navy);
+  }
+  .nav-pill.highlight{
+    background:#eff6ff;
+    color:var(--blue);
+    border:1px solid #bfdbfe;
+  }
+
+  /* Header */
+  header.hero{
+    background:var(--navy);
+    color:#ffffff;
+    padding:50px 24px 44px;
+  }
+  .hero-wrap{
+    max-width:1160px;
+    margin:0 auto;
+  }
+  .hero-badge{
+    display:inline-block;
+    background:rgba(255,255,255,0.12);
+    color:#93c5fd;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:4px;
+    margin-bottom:12px;
+  }
+  header.hero h1{
+    font-size:clamp(28px, 4vw, 38px);
+    line-height:1.2;
+    margin:0 0 12px;
+    font-weight:800;
+  }
+  header.hero p{
+    font-size:16px;
+    color:#cbd5e1;
+    max-width:760px;
+    margin:0;
+  }
+
+  /* Layout */
+  .layout{
+    max-width:1160px;
+    margin:32px auto 80px;
+    padding:0 24px;
+    display:grid;
+    grid-template-columns:250px 1fr;
+    gap:32px;
+    align-items:start;
+  }
+  @media(max-width:900px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{display:none;}
+  }
+
+  /* Sidebar */
+  .sidebar{
+    position:sticky;
+    top:74px;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:16px;
+  }
+  .sidebar-title{
+    font-size:11px;
+    font-weight:800;
+    color:var(--slate);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-bottom:10px;
+  }
+  .sidebar-links{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .sidebar-links a{
+    text-decoration:none;
+    font-size:12.5px;
+    color:var(--slate);
+    padding:8px 10px;
+    border-radius:6px;
+    font-weight:600;
+    display:block;
+  }
+  .sidebar-links a:hover{
+    background:#f1f5f9;
+    color:var(--navy);
+  }
+
+  /* Main Content Area */
+  .content{
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+  }
+
+  /* Standard Card */
+  .card{
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:28px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.02);
+  }
+  .card-header{
+    border-bottom:1px solid var(--border);
+    padding-bottom:16px;
+    margin-bottom:20px;
+  }
+  .card-num{
+    font-size:12px;
+    font-weight:800;
+    color:var(--blue);
+    text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .card-title{
+    font-size:21px;
+    font-weight:700;
+    margin:0 0 6px;
+    color:var(--navy);
+  }
+  .card-desc{
+    font-size:14.5px;
+    color:var(--slate);
+    margin:0;
+  }
+
+  /* Milestone Notice / Plan Callouts */
+  .callout-blue{
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    border-left:5px solid var(--blue);
+    border-radius:8px;
+    padding:18px 20px;
+    margin-bottom:20px;
+  }
+  .callout-blue h3{
+    margin:0 0 6px;
+    font-size:15.5px;
+    color:#1e3a8a;
+    font-weight:800;
+  }
+  .callout-blue p{
+    margin:0;
+    font-size:13.5px;
+    color:#1e40af;
+    line-height:1.55;
+  }
+
+  .callout-purple{
+    background:#f5f3ff;
+    border:1px solid #ddd6fe;
+    border-left:5px solid var(--purple);
+    border-radius:8px;
+    padding:18px 20px;
+    margin-top:24px;
+  }
+  .callout-purple h3{
+    margin:0 0 6px;
+    font-size:15.5px;
+    color:#4c1d95;
+    font-weight:800;
+  }
+  .callout-purple p{
+    margin:0;
+    font-size:13.5px;
+    color:#5b21b6;
+    line-height:1.55;
+  }
+
+  /* Grid Layouts */
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:14px;
+    margin-top:14px;
+  }
+  .mini-box{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:14px 16px;
+  }
+  .mini-box b{
+    display:block;
+    font-size:13.5px;
+    color:var(--navy);
+    margin-bottom:4px;
+  }
+  .mini-box span{
+    font-size:12.5px;
+    color:var(--slate);
+    line-height:1.45;
+    display:block;
+  }
+
+  /* Hand-off Flow (5 Steps) */
+  .steps-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .step-box{
+    flex:1 1 180px;
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-top:4px solid var(--box-color, #0f172a);
+    border-radius:8px;
+    padding:14px;
+  }
+  .step-box .role{
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    color:var(--box-color, #0f172a);
+    margin:0 0 6px;
+  }
+  .step-box .heading{
+    font-size:14px;
+    font-weight:700;
+    margin:0 0 6px;
+    color:var(--navy);
+  }
+  .step-box .text{
+    font-size:12.5px;
+    color:var(--slate);
+    margin:0;
+    line-height:1.4;
+  }
+
+  /* Lifecycle Pipeline */
+  .pipeline{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-width:700px;
+  }
+  .pipe-node{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+  }
+  .pipe-node.finish{
+    background:var(--navy);
+    color:#ffffff;
+    border-color:var(--navy);
+  }
+  .pipe-title{
+    font-weight:700;
+    font-size:15px;
+  }
+  .pipe-sub{
+    font-size:12.5px;
+    color:var(--slate);
+    margin-top:2px;
+  }
+  .pipe-node.finish .pipe-sub{
+    color:#94a3b8;
+  }
+  .pipe-tag{
+    font-size:11.5px;
+    font-weight:700;
+    background:#ffffff;
+    border:1px solid var(--border);
+    padding:4px 10px;
+    border-radius:6px;
+    white-space:nowrap;
+    color:var(--navy);
+  }
+  .pipe-node.finish .pipe-tag{
+    background:rgba(255,255,255,0.15);
+    border-color:transparent;
+    color:#ffffff;
+  }
+  .pipe-arrow{
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+    color:var(--slate);
+    padding:4px 0;
+  }
+
+  /* Lock Box */
+  .rule-box{
+    background:#fffbeb;
+    border:1px solid #fde68a;
+    border-left:4px solid var(--amber);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .rule-box-title{
+    font-size:13.5px;
+    font-weight:800;
+    color:#92400e;
+    margin:0 0 8px;
+  }
+  .rule-box ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13px;
+    color:#78350f;
+  }
+  .rule-box li{
+    margin-bottom:6px;
+  }
+  .rule-box li:last-child{margin-bottom:0;}
+
+  /* Outcome Pills */
+  .outcomes-wrap{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .outcome-pill{
+    font-size:12px;
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .pill-green{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;}
+  .pill-red{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
+  .pill-gray{background:#f1f5f9;color:var(--slate);border:1px solid var(--border);}
+
+  /* Accordions */
+  .role-toggle{
+    border:1px solid var(--border);
+    border-radius:8px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .role-toggle summary{
+    padding:16px 20px;
+    background:#ffffff;
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    user-select:none;
+    border-left:4px solid var(--item-color, var(--navy));
+  }
+  .role-toggle summary::-webkit-details-marker{display:none;}
+  .role-toggle summary:hover{background:#f8fafc;}
+  .role-name{
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    color:var(--item-color, var(--navy));
+    letter-spacing:0.04em;
+  }
+  .role-job{
+    font-size:15px;
+    font-weight:700;
+    color:var(--navy);
+  }
+  .role-body{
+    padding:20px;
+    background:#ffffff;
+    border-top:1px solid var(--border);
+  }
+  .role-body ol{
+    margin:0;
+    padding-left:20px;
+  }
+  .role-body li{
+    font-size:13.5px;
+    color:var(--slate);
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .role-body li:last-child{margin-bottom:0;}
+  .role-body b{color:var(--navy);}
+
+  /* Money Engine Visual */
+  .money-box{
+    background:#f8fafc;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .money-tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    flex:1 1 300px;
+  }
+  .money-tag{
+    background:#ffffff;
+    border:1px solid var(--border);
+    font-size:12px;
+    font-weight:700;
+    color:var(--slate);
+    padding:6px 12px;
+    border-radius:6px;
+  }
+  .money-arrow{
+    font-size:22px;
+    color:#94a3b8;
+  }
+  .money-target{
+    background:var(--navy);
+    color:#ffffff;
+    padding:16px 20px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+    line-height:1.4;
+  }
+
+  /* Table */
+  .table-scroll{
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:8px;
+  }
+  table.simple-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:760px;
+    font-size:13px;
+  }
+  table.simple-table th, table.simple-table td{
+    padding:12px 14px;
+    text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  table.simple-table th{
+    background:var(--navy);
+    color:#ffffff;
+    font-weight:700;
+    font-size:12px;
+  }
+  table.simple-table tr:last-child td{border-bottom:none;}
+  .perm{
+    display:inline-block;
+    padding:3px 8px;
+    border-radius:4px;
+    font-size:11px;
+    font-weight:700;
+  }
+  .perm-full{background:#dcfce7;color:#15803d;}
+  .perm-review{background:#fef3c7;color:#b45309;}
+  .perm-own{background:#e0f2fe;color:#0369a1;}
+  .perm-view{background:#f3e8ff;color:#7e22ce;}
+  .perm-none{color:#cbd5e1;}
+
+  /* Footer */
+  footer{
+    background:#0f172a;
+    color:#cbd5e1;
+    border-top:4px solid var(--blue);
+    padding:44px 24px 32px;
+  }
+  .footer-inner{
+    max-width:1160px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .footer-brand{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    border-bottom:1px solid #334155;
+    padding-bottom:18px;
+  }
+  .footer-logo{
+    font-size:18px;
+    font-weight:800;
+    color:#ffffff;
+    letter-spacing:0.04em;
+  }
+  .footer-logo span{
+    color:#38bdf8;
+  }
+  .footer-meta{
+    font-size:12px;
+    color:#94a3b8;
+  }
+  .footer-text{
+    font-size:12.5px;
+    color:#94a3b8;
+    line-height:1.6;
+    margin:0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="brand-tag">
+      HVAC Operations System <span>Omnysync Blueprint</span>
+    </div>
+    <div class="nav-pills">
+      <a href="#section-roadmap" class="nav-pill highlight">⭐ Roadmap & Deliverables</a>
+      <a href="#section-1" class="nav-pill">1. The 5-Team Pass</a>
+      <a href="#section-2" class="nav-pill">2. Job Stages</a>
+      <a href="#section-3" class="nav-pill">3. Team Checklists</a>
+      <a href="#section-4" class="nav-pill">4. Money Tracking</a>
+      <a href="#section-5" class="nav-pill">5. Roles & Access</a>
+      <a href="#section-6" class="nav-pill">6. Lost Items</a>
+      <a href="#section-7" class="nav-pill">7. Expenses</a>
+      <a href="#section-8" class="nav-pill">8. Parts vs Labor</a>
+      <a href="#section-9" class="nav-pill">9. Buying Stock</a>
+      <a href="#section-reports" class="nav-pill highlight">📊 Reports & Dashboards</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-wrap">
+    <div class="hero-badge">Architected by Omnysync</div>
+    <h1>How Work Moves Through The System</h1>
+    <p>The entire workflow for all modules is laid out here. The most important thing is making sure the whole workflow matches your exact business process. Role permissions and who sees what are just simple toggle buttons for us—the core focus is getting your business steps 100% right from start to finish.</p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Navigation</div>
+    <div class="sidebar-links">
+      <a href="#section-roadmap" style="color:var(--blue);font-weight:700;">⭐ Roadmap & Deliverables</a>
+      <a href="#section-1">1. The 5-Team Pass</a>
+      <a href="#section-2">2. Job Stages & Rules</a>
+      <a href="#section-3">3. Step-by-Step Roles</a>
+      <a href="#section-4">4. Central Money Engine</a>
+      <a href="#section-5">5. Roles & Permissions</a>
+      <a href="#section-6">6. Broken & Lost Items</a>
+      <a href="#section-7">7. Paying Worker Expenses</a>
+      <a href="#section-8">8. Price List (Parts vs Labor)</a>
+      <a href="#section-9">9. Purchasing New Stock</a>
+      <a href="#section-reports" style="color:var(--purple);font-weight:700;">📊 Reports & Custom Views</a>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Roadmap & Deliverables Callout -->
+    <section class="card" id="section-roadmap" style="border-top:5px solid var(--blue);">
+      <div class="card-header">
+        <div class="card-num">Omnysync Project Plan & Timeline</div>
+        <h2 class="card-title">Development Roadmap & The First 2 Weeks Deliverable</h2>
+        <p class="card-desc">The complete workflow for every module is documented below. Our goal is to ensure the entire flow reflects your real business logic before anything else.</p>
+      </div>
+
+      <div class="callout-blue">
+        <h3>🚀 First 2 Weeks Deliverables: Complete End-to-End Jobs Engine</h3>
+        <p>Our primary deliverable for the first 2 weeks is the entire <b>End-to-End Jobs Module & Architecture</b>. This includes full customer job intake, technician dispatch, mobile start/stop checkpoints, stock requests, daily hisaab reconciliation, final manager approval, and call center QA integration. You will receive a live, working prototype of this entire loop to test on real devices.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="mini-box">
+          <b>1. Full Workflow First</b>
+          <span>Making sure the steps fit your business is 90% of the work. Roles and permissions are simple switches we can flip anytime.</span>
+        </div>
+        <div class="mini-box">
+          <b>2. Module-by-Module Demos</b>
+          <span>As each module is built, we demo it live to you. You test it, give notes, and we perfect it together before moving on.</span>
+        </div>
+        <div class="mini-box">
+          <b>3. Continuous Documentation</b>
+          <span>Detailed architecture diagrams and documentation like this document will be shared for every other module as they begin according to the project timeline.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1 -->
+    <section class="card" id="section-1">
+      <div class="card-header">
+        <div class="card-num">Section 1</div>
+        <h2 class="card-title">The Big Picture: How a Job Passes Hand to Hand</h2>
+        <p class="card-desc">Every single job moves through 5 teams in the exact same order. The computer system automatically sends alerts at each step, so nobody has to waste time calling coworkers to ask "is this done yet?"</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-box" style="--box-color:var(--dispatcher)">
+          <div class="role">Team 1: Dispatcher</div>
+          <div class="heading">Takes the Call</div>
+          <p class="text">Finds the customer, lists what needs fixing with prices, and picks the best technician for the job .</p>
+        </div>
+
+        <div class="step-box" style="--box-color:var(--technician)">
+          <div class="role">Team 2: Technician</div>
+          <div class="heading">Does the Work</div>
+          <p class="text">Gets the alert on their phone, arrives on site, uses parts, does the labor, and marks it finished .</p>
+        </div>
+
+        <div class="step-box" style="--box-color:var(--accountant)">
+          <div class="role">Team 3: Accountant</div>
+          <div class="heading">Daily Hisaab (Settlement)</div>
+          <p class="text">Takes the cash collected from the customer, checks worker expenses, and confirms leftover parts were returned .</p>
+        </div>
+
+        <div class="step-box" style="--box-color:var(--admin)">
+          <div class="role">Team 4: Admin / Boss</div>
+          <div class="heading">Final Check & Approval</div>
+          <p class="text">Reviews the work, confirms the cash and stock match up, and signs off . The job is now locked .</p>
+        </div>
+
+        <div class="step-box" style="--box-color:var(--callcenter)">
+          <div class="role">Team 5: Call Center</div>
+          <div class="heading">Calls the Customer</div>
+          <p class="text">Calls the customer to ask if they are happy with the work and marks down their review .</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="card" id="section-2">
+      <div class="card-header">
+        <div class="card-num">Section 2</div>
+        <h2 class="card-title">The Exact Stages Every Job Goes Through</h2>
+        <p class="card-desc">The system has strict gates . Nobody can skip a step or mark a job done until the computer checks that the rules were followed .</p>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipe-node" style="border-left:4px solid var(--dispatcher)">
+          <div>
+            <div class="pipe-title">1. Created</div>
+            <div class="pipe-sub">Dispatcher opens the ticket and enters what work is needed .</div>
+          </div>
+          <span class="pipe-tag">Dispatcher</span>
+        </div>
+
+        <div class="pipe-arrow">↓ System sends WhatsApp alert to technician's phone </div>
+
+        <div class="pipe-node" style="border-left:4px solid var(--dispatcher)">
+          <div>
+            <div class="pipe-title">2. Assigned</div>
+            <div class="pipe-sub">Assigned to a technician based on who is nearby and free .</div>
+          </div>
+          <span class="pipe-tag">Automatic Alert</span>
+        </div>
+
+        <div class="pipe-arrow">↓ Technician taps "Accept" on mobile app </div>
+
+        <div class="pipe-node" style="border-left:4px solid var(--technician)">
+          <div>
+            <div class="pipe-title">3. In Progress (Started)</div>
+            <div class="pipe-sub">Technician taps "Start" upon arrival. App saves GPS location and time .</div>
+          </div>
+          <span class="pipe-tag">Technician Mobile</span>
+        </div>
+
+        <div class="pipe-arrow">↓ If the job cannot finish today (sun goes down / parts needed tomorrow) </div>
+
+        <div class="pipe-node" style="border-left:4px solid var(--technician)">
+          <div>
+            <div class="pipe-title">4. Paused (End of Day)</div>
+            <div class="pipe-sub">Work stops for the night. The system now locks the job .</div>
+          </div>
+          <span class="pipe-tag">Shift Cutoff</span>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-box-title">⛔ System Lock: Technician Cannot Resume Tomorrow Until 2 Things Happen: </div>
+          <ul>
+            <li><b>1. Store Check:</b> Leftover parts must be handed back to the store keeper and signed off in the system .</li>
+            <li><b>2. Cash Handover (Hisaab):</b> Any customer cash collected today must be given to the accountant and recorded .</li>
+          </ul>
+          <p style="margin:8px 0 0;font-size:12px;font-style:italic;">The mobile app will physically block the technician from tapping "Resume" the next morning until the store and accountant confirm both items on their computers .</p>
+        </div>
+
+        <div class="pipe-arrow">↓ Next day: Both checked → Technician taps Resume → Finishes the work </div>
+
+        <div class="pipe-node" style="border-left:4px solid var(--technician)">
+          <div>
+            <div class="pipe-title">5. Completed (Awaiting Verification)</div>
+            <div class="pipe-sub">Technician enters the real quantity of parts and labor used, then submits .</div>
+          </div>
+          <span class="pipe-tag">Technician Mobile</span>
+        </div>
+
+        <div class="pipe-arrow">↓ Technician visits office for final settlement (Hisaab) </div>
+
+        <div class="pipe-node" style="border-left:4px solid var(--accountant)">
+          <div>
+            <div class="pipe-title">6. Finalized</div>
+            <div class="pipe-sub">Accountant clears the money and locks the job . No more changes can be made .</div>
+          </div>
+          <span class="pipe-tag">Accountant</span>
+        </div>
+
+        <div class="pipe-arrow">↓ Boss does final 3-point check (Labor done? Money received? Stock returned?) </div>
+
+        <div class="pipe-node finish">
+          <div>
+            <div class="pipe-title">7. Verified (Officially Closed)</div>
+            <div class="pipe-sub">Admin signs off. Financial books and inventory are permanently saved .</div>
+          </div>
+          <span class="pipe-tag">Admin Approval</span>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:16px;background:#f1f5f9;border-radius:8px;font-size:13px;">
+        <b>What happens immediately after Verified:</b> The system automatically drops the job right into the Call Center's queue . Nobody has to remember to email them .
+        <div class="outcomes-wrap">
+          <span class="outcome-pill pill-green">Customer Happy → Ticket Done </span>
+          <span class="outcome-pill pill-red">Customer Unhappy → Alert Sent Straight to Boss </span>
+          <span class="outcome-pill pill-gray">No Answer → System Schedules a Callback Later </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="card" id="section-3">
+      <div class="card-header">
+        <div class="card-num">Section 3</div>
+        <h2 class="card-title">What Each Person Taps and Does (Step by Step)</h2>
+        <p class="card-desc">Click any role below to expand their exact daily checklist. This explains what buttons they see and what happens in the background .</p>
+      </div>
+
+      <!-- Dispatcher -->
+      <details class="role-toggle" style="--item-color:var(--dispatcher)" open>
+        <summary>
+          <div>
+            <div class="role-name">Dispatcher</div>
+            <div class="role-job">Taking Calls, Opening Jobs & Scheduling </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Customer Calls In:</b> Dispatcher searches by customer phone number or name .</li>
+            <li><b>Autofill or New Customer:</b> If they exist, details load instantly . If new, adds them and selects their location from an interactive map .</li>
+            <li><b>Job Ticket Created:</b> System automatically creates a unique job tracking number .</li>
+            <li><b>List the Scope:</b> Dispatcher selects what needs to be done (e.g., "AC Gas Refill", "Wiring Repair") and enters standard prices and estimated quantities .</li>
+            <li><b>Subcontractor Check:</b> If this job is subcontracted from another partner company, attaches that company's name and billing info .</li>
+            <li><b>Assign Technician:</b> Picks an available worker from a list or looks at a live GPS map showing who is nearest to the customer's house .</li>
+            <li><b>Automatic Alert:</b> The moment they hit save, the technician receives both a WhatsApp message and a mobile app notification .</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Technician -->
+      <details class="role-toggle" style="--item-color:var(--technician)">
+        <summary>
+          <div>
+            <div class="role-name">Technician</div>
+            <div class="role-job">Mobile App on Site, Live Discounts, Material Requests & Work </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>View New Job:</b> Opens the phone notification to see customer name, address, phone, and what work is required .</li>
+            <li><b>Accept & Start:</b> Taps <b>Accept</b> . When arriving at the customer's doorstep, taps <b>Start Job</b> (this records arrival time and GPS location) .</li>
+            <li><b>Need More Parts Mid-Job?</b> Taps <b>Request Parts</b> in the app . The store keeper instantly receives the request on their screen .</li>
+            <li><b>Request Live Discounts on Parts & Labor:</b> If a customer negotiates on site for a lower price on parts (like a capacitor, copper pipe) or labor services, the technician taps <b>Request Discount</b> directly in the app . They choose the item, type the requested discounted rate, and send it to the office . The worker cannot apply discounts on their own—it must be approved by the accountant or boss . As soon as the office clicks approve, the new lower price updates on the technician's phone screen instantly .</li>
+            <li><b>Something Damaged or Lost?</b> If an item gets broken or lost on site, reports it in the app . This notifies both the store and accountant .</li>
+            <li><b>Work Stops for the Night:</b> If the job will take another day, taps <b>Stop Job</b> . The app warns them: they must hand back unused parts to the store and bring the day's cash to the accountant before tomorrow's resume button will work .</li>
+            <li><b>Out-of-Pocket Spending:</b> If the technician buys tape or screws from a local market, they enter the amount, write a note, and take a photo of the receipt .</li>
+            <li><b>Finishing the Job:</b> Taps <b>Complete Job</b> . The app requires them to enter the <i>exact actual quantity</i> of parts and labor used before allowing them to submit .</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Accountant -->
+      <details class="role-toggle" style="--item-color:var(--accountant)">
+        <summary>
+          <div>
+            <div class="role-name">Accountant</div>
+            <div class="role-job">Daily Cash Settling (Hisaab), Live Discount Approvals & Freezing Records </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Daily Queue:</b> Opens their screen to see all jobs waiting for settlement (both paused multi-day jobs and completed jobs) .</li>
+            <li><b>Live Discount Approvals:</b> Receives instant pop-ups when technicians on site request a discount for parts or labor . Can approve or reject with one click, automatically updating the customer's live job bill .</li>
+            <li><b>Calculated Total:</b> The system displays the exact amount owed by the customer based on actual parts and labor used, minus any approved discounts .</li>
+            <li><b>Enter Cash Handed Over:</b> Enters the actual paper cash given by the technician . If the customer paid less than full, the system saves the unpaid shortfall and sets a reminder date to collect the rest .</li>
+            <li><b>Audit Worker Expenses:</b> Reviews the photo receipts uploaded by the technician . If office cash is available, reimburses them on the spot . If cash is low, pays a portion or defers it . Any unpaid amount stays permanently recorded on the technician's balance so they never lose money .</li>
+            <li><b>Check Store Sign-Off:</b> Confirms that the store keeper physically received leftover parts . If items were lost or broken by the technician, the cost is charged to the technician's personal ledger .</li>
+            <li><b>Lock the Record:</b> Clicks <b>Finalize</b> . The numbers are now frozen—nobody can change prices or items anymore—and the job goes to the boss for final audit .</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Admin / Boss -->
+      <details class="role-toggle" style="--item-color:var(--admin)">
+        <summary>
+          <div>
+            <div class="role-name">Admin / Supervisor</div>
+            <div class="role-job">Final Approval, Live GPS Map & High-Level Reports </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Approval Inbox:</b> Sees every finalized job ready for sign-off in one simple list .</li>
+            <li><b>Full History:</b> Can see live worker locations, how many hours the job took, and every action taken from start to finish .</li>
+            <li><b>Quick 3-Point Checklist:</b> Ticks 3 boxes: Was the work actually done? Was the money collected? Were excess parts returned?  If anything is suspicious, sends it back with a note—nothing is silently changed .</li>
+            <li><b>Final Verification:</b> Hits <b>Approve</b> . The job moves to "Verified" status and automatically goes to the Call Center .</li>
+            <li><b>Live Team Map:</b> Looks at a map showing where all technicians are in the city to assign urgent jobs efficiently .</li>
+            <li><b>Executive Dashboards:</b> Views one clean screen showing completed jobs, pending money, total revenue, and worker rankings .</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Store Keeper -->
+      <details class="role-toggle" style="--item-color:var(--store)">
+        <summary>
+          <div>
+            <div class="role-name">Store Keeper</div>
+            <div class="role-job">Handing Out Parts, Receiving Returns & Stock Levels </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Issues Materials:</b> Sees parts requested by technicians on their phone app, collects them from warehouse shelves, and marks them as handed out .</li>
+            <li><b>Receives Leftovers:</b> Physically checks returned parts from technicians at the end of the day and clicks "Received" . (This unlocks the technician's phone for the next day) .</li>
+            <li><b>Handles Missing/Broken Items:</b> If a technician broke or lost a part, confirms the item is gone so the accountant can deduct the cost from the technician .</li>
+            <li><b>Maintains the Catalog:</b> Adds new items, sets minimum safety stock alerts, and updates standard prices .</li>
+            <li><b>Reorders Stock:</b> When items get low on shelves, clicks to create a purchase request for management to approve .</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- HR / Payroll -->
+      <details class="role-toggle" style="--item-color:var(--hr)">
+        <summary>
+          <div>
+            <div class="role-name">HR & Payroll</div>
+            <div class="role-job">Biometric Attendance, Salary Advances & Monthly Pay </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Check-In / Check-Out:</b> Workers scan their face and app verifies their GPS location twice a day . Any failed attempt is saved so nobody can fake attendance .</li>
+            <li><b>Salary Advances:</b> When a worker takes an advance loan, it is recorded against their personal balance .</li>
+            <li><b>3-Step Pay Day (Safety Rule):</b>
+              <br>• <i>Step 1:</i> System automatically calculates salaries, subtracting advance loans and lost items. (Draft only, hidden from workers) .
+              <br>• <i>Step 2:</i> A different manager must review and click "Approve" (so one person cannot send money out alone) .
+              <br>• <i>Step 3:</i> Salaries are marked paid, company accounts update, and pay slips appear on worker phones .
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Call Center -->
+      <details class="role-toggle" style="--item-color:var(--callcenter)">
+        <summary>
+          <div>
+            <div class="role-name">Call Center</div>
+            <div class="role-job">Calling Customers to Confirm Satisfaction </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Automated Queue:</b> Every time the boss approves a job, it pops up directly on the Call Center caller screen .</li>
+            <li><b>Customer Feedback Call:</b> Agent dials the customer and chooses one of four buttons: Happy, Unhappy, No Answer, or Call Later .</li>
+            <li><b>Unhappy Customer?</b> If the customer is dissatisfied, the agent must type the reason . This triggers an urgent red flag directly on the Admin's screen . (Note: money already collected is not touched) .</li>
+            <li><b>No Answer?</b> System sets a timer to bring the customer's phone number back to the screen later in the afternoon .</li>
+            <li><b>Ratings Dashboard:</b> Feedback scores calculate the technician's monthly quality rating .</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Sales / Invoicing -->
+      <details class="role-toggle" style="--item-color:var(--sales)">
+        <summary>
+          <div>
+            <div class="role-name">Sales & Accounts</div>
+            <div class="role-job">Quotations, Invoices & Shop Counter Sales </div>
+          </div>
+          <span style="font-size:18px;color:var(--slate);">▾</span>
+        </summary>
+        <div class="role-body">
+          <ol>
+            <li><b>Quotation to Job:</b> Can build a price estimate for a customer . When the customer agrees, one click turns it into an active job ticket .</li>
+            <li><b>Automatic Customer Invoices:</b> When a technician completes a job, the system turns the real quantities into an official printable invoice .</li>
+            <li><b>Counter Sales (Shop POS):</b> If a walk-in customer buys a filter or thermostat at your office counter, the cashier selects the item, prints an invoice, and the inventory drops immediately .</li>
+          </ol>
+        </div>
+      </details>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="card" id="section-4">
+      <div class="card-header">
+        <div class="card-num">Section 4</div>
+        <h2 class="card-title">Where All The Money Goes: One Single System</h2>
+        <p class="card-desc">No matter who takes cash, issues a discount, or buys parts, everything pours into one single accounting engine . Nothing is written in separate notebooks, meaning your books always balance .</p>
+      </div>
+
+      <div class="money-box">
+        <div class="money-tags">
+          <div class="money-tag">Customer Job Payments </div>
+          <div class="money-tag">Parts Used on Jobs </div>
+          <div class="money-tag">Worker Salary Advances </div>
+          <div class="money-tag">Worker Expenses Paid </div>
+          <div class="money-tag">Discounts Given </div>
+          <div class="money-tag">Monthly Staff Payroll </div>
+          <div class="money-tag">Bills Paid to Suppliers </div>
+        </div>
+        <div class="money-arrow">➔</div>
+        <div class="money-target">
+          <b>One Central Accounts Engine</b><br>
+          Everything recorded once.<br>
+          Money in must equal money out .
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="card" id="section-5">
+      <div class="card-header">
+        <div class="card-num">Section 5</div>
+        <h2 class="card-title">Role Permissions (Easily Configured With Simple Toggles)</h2>
+        <p class="card-desc">Building the full workflow to run your business smoothly is our main task. What buttons each role can tap is just a toggle switch for us and can be changed whenever you want .</p>
+      </div>
+
+      <div class="callout-blue">
+        <h3>Role Permissions Are Flexible Toggles:</h3>
+        <p>Don't worry if your exact team titles differ or if someone wears multiple hats . <b>Roles are just permission switches in the system.</b> If you want one person to do both dispatching and quality calls, or if you want your accountant to approve warehouse parts, we can toggle that on or off in seconds without touching the business logic .</p>
+      </div>
+
+      <div class="table-scroll">
+        <table class="simple-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Create & Schedule</th>
+              <th>Mobile App Jobs</th>
+              <th>Money / Cash</th>
+              <th>Stock / Parts</th>
+              <th>Pay Staff</th>
+              <th>Live Map & Reports</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Dispatcher</b> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-view">Map Only</span> </td>
+            </tr>
+            <tr>
+              <td><b>Technician</b> </td>
+              <td><span class="perm perm-own">View Own Jobs</span> </td>
+              <td><span class="perm perm-full">Full (Own Job)</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-review">Request Parts</span> </td>
+              <td><span class="perm perm-own">View Own Pay</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+            </tr>
+            <tr>
+              <td><b>Accountant</b> </td>
+              <td><span class="perm perm-view">View Only</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-view">View Valuation</span> </td>
+              <td><span class="perm perm-review">Record Advances</span> </td>
+              <td><span class="perm perm-view">Financial Reports</span> </td>
+            </tr>
+            <tr>
+              <td><b>Store Keeper</b> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-view">Stock History</span> </td>
+            </tr>
+            <tr>
+              <td><b>Admin (Boss)</b> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-full">Full Override</span> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+              <td><span class="perm perm-full">Full Control</span> </td>
+            </tr>
+            <tr>
+              <td><b>HR / Payroll</b> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-review">Payroll Only</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-full">Full Payroll</span> </td>
+              <td><span class="perm perm-view">Staff Reports</span> </td>
+            </tr>
+            <tr>
+              <td><b>Call Center</b> </td>
+              <td><span class="perm perm-view">Finished Jobs Only</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-view">Customer Reviews</span> </td>
+            </tr>
+            <tr>
+              <td><b>Sales / Counter</b> </td>
+              <td><span class="perm perm-full">Quotations</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-review">Invoices / POS</span> </td>
+              <td><span class="perm perm-view">Stock Dips on Sale</span> </td>
+              <td><span class="perm perm-none">—</span> </td>
+              <td><span class="perm perm-view">Sales Reports</span> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="card" id="section-6">
+      <div class="card-header">
+        <div class="card-num">Section 6</div>
+        <h2 class="card-title">What Happens When Items Are Broken or Lost</h2>
+        <p class="card-desc">Instead of items disappearing with nobody taking responsibility, the system has a clean 3-step path that holds the right person accountable .</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-box" style="--box-color:var(--technician)">
+          <div class="role">Step 1: Technician</div>
+          <div class="heading">Reports the Loss</div>
+          <p class="text">Reports in the mobile app: "Item X was broken / missing on site." </p>
+        </div>
+        <div class="step-box" style="--box-color:var(--store)">
+          <div class="role">Step 2: Store Keeper</div>
+          <div class="heading">Confirms Item is Missing</div>
+          <p class="text">Checks physical stock, verifies the part is gone, and updates the warehouse count .</p>
+        </div>
+        <div class="step-box" style="--box-color:var(--accountant)">
+          <div class="role">Step 3: Accountant</div>
+          <div class="heading">Charges Worker Ledger</div>
+          <p class="text">System charges the cost of the lost item directly against the technician's salary balance .</p>
+        </div>
+      </div>
+      <p style="margin-top:14px;font-size:12.5px;color:var(--slate);">
+        <b>Why this matters:</b> Everything is recorded openly . There are no side arguments at the end of the month because the proof is saved on the system .
+      </p>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="card" id="section-7">
+      <div class="card-header">
+        <div class="card-num">Section 7</div>
+        <h2 class="card-title">Reimbursing Worker Expenses (Cash Flow Rule)</h2>
+        <p class="card-desc">Technicians often spend their own money to buy small parts like tape, gas, or pipe on site . Here is how the accountant pays them back based on how much cash the office has .</p>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:20px;">
+        <div style="font-weight:700;font-size:14.5px;margin-bottom:8px;">Technician uploads receipt photo → Accountant reviews at end of day: </div>
+        
+        <div class="outcomes-wrap">
+          <span class="outcome-pill pill-green">
+            <b>Office Has Full Cash:</b> Reimbursed 100% on the spot 
+          </span>
+          <span class="outcome-pill pill-red" style="background:#fef3c7;color:#92400e;border-color:#fde68a;">
+            <b>Office Has Some Cash:</b> Paid partially, remainder carried forward 
+          </span>
+          <span class="outcome-pill pill-gray">
+            <b>Office Has No Cash:</b> Full amount saved as company debt to worker 
+          </span>
+        </div>
+
+        <p style="margin:16px 0 0;font-size:13px;color:var(--slate);line-height:1.5;">
+          <b>The Golden Rule:</b> If the office cannot pay today, the money is never forgotten . It stays on the technician's balance sheet until cash arrives, or it is automatically added as a bonus on their next monthly paycheck .
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="card" id="section-8">
+      <div class="card-header">
+        <div class="card-num">Section 8</div>
+        <h2 class="card-title">Your Price List: Physical Parts vs Labor Services</h2>
+        <p class="card-desc">Your system handles physical products and labor charges separately so your warehouse counts stay accurate .</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-box" style="--box-color:var(--store)">
+          <div class="role">Physical Parts (Managed by Store)</div>
+          <div class="heading">Items with Stock Count</div>
+          <p class="text">Copper pipes, gas cans, thermostats, motors . When used on a job, the warehouse count goes down .</p>
+        </div>
+
+        <div class="step-box" style="--box-color:var(--admin)">
+          <div class="role">Labor Services (Managed by Boss)</div>
+          <div class="heading">Intangible Work (No Stock)</div>
+          <p class="text">AC Service Fee, Gas Refill Labor, Installation Charge . Just a name and a fixed selling price .</p>
+        </div>
+
+        <div class="step-box" style="--box-color:var(--sales)">
+          <div class="role">Everywhere Else</div>
+          <div class="heading">Both Pickable Together</div>
+          <p class="text">Both appear neatly in a dropdown menu whenever staff make an estimate, bill, or work order .</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="card" id="section-9">
+      <div class="card-header">
+        <div class="card-num">Section 9</div>
+        <h2 class="card-title">Buying New Stock (Stopping Theft & Overpaying)</h2>
+        <p class="card-desc">How your business buys materials from suppliers using a strict 5-step check so you never pay for items that did not arrive .</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-box">
+          <div class="role">1. Store Keeper</div>
+          <div class="heading">Requests Stock</div>
+          <p class="text">Notices parts are low or system warns that shelves hit minimum limit .</p>
+        </div>
+        <div class="step-box">
+          <div class="role">2. Boss</div>
+          <div class="heading">Approves Request</div>
+          <p class="text">Checks if company has budget and approves purchase .</p>
+        </div>
+        <div class="step-box">
+          <div class="role">3. Purchasing</div>
+          <div class="heading">Sends PO to Supplier</div>
+          <p class="text">Generates official PDF Purchase Order with locked prices and emails vendor .</p>
+        </div>
+        <div class="step-box">
+          <div class="role">4. Store Keeper</div>
+          <div class="heading">Inspects Delivery</div>
+          <p class="text">When delivery truck arrives, counts items physically and records what actually came in .</p>
+        </div>
+        <div class="step-box">
+          <div class="role">5. Accountant</div>
+          <div class="heading">Checks & Pays Bill</div>
+          <p class="text">Performs the 3-Way Match before paying the bill .</p>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding:14px;background:#f8fafc;border:1px solid var(--border);border-radius:6px;font-size:12.5px;color:var(--slate);">
+        <b>The 3-Way Match Rule:</b> The accountant will only pay the supplier bill if: 
+        <br><code>What was Ordered (PO) == What was Received (Store Slip) == What the Supplier Billed (Invoice)</code> .
+        <br>If the supplier charges for 10 items but only 8 arrived at your warehouse, the system blocks full payment automatically .
+      </div>
+    </section>
+
+    <!-- Custom Reports Section -->
+    <section class="card" id="section-reports" style="border-top:5px solid var(--purple);">
+      <div class="card-header">
+        <div class="card-num">Complete Visibility & Analytics</div>
+        <h2 class="card-title">Reports: Once We Have the Data, It Can Be Shown in Any Form You Want</h2>
+        <p class="card-desc">The hardest part of any system is recording accurate data. Once the workflow is running smoothly, we can generate any custom report, PDF, graph, or Excel sheet you need.</p>
+      </div>
+
+      <div class="callout-purple">
+        <h3>Unlimited Custom Dashboards</h3>
+        <p>Because every job timestamp, part used, rupee collected, and customer feedback is saved cleanly in the central database, <b>we can display your business numbers in any format you like</b>. You are never restricted to standard reports.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="mini-box">
+          <b>💼 Financial & Cash Reports</b>
+          <span>• Daily Cash Inflow vs Expected Collections<br>• Outstanding Customer Debt (Aging balances)<br>• Net Profit per Job or per Technician</span>
+        </div>
+        <div class="mini-box">
+          <b>📦 Warehouse & Material Reports</b>
+          <span>• Fast-moving vs slow-moving stock<br>• Low stock alerts before you run out<br>• Total loss & breakage audit logs</span>
+        </div>
+        <div class="mini-box">
+          <b>⭐ Team Performance & Quality</b>
+          <span>• Best technicians by speed & customer rating<br>• Average hours per job type<br>• Customer complaint trends & reasons</span>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding:14px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--slate);">
+        <b>Formats Available:</b> Live visual dashboards, automatic morning WhatsApp summaries, one-click PDF invoices, or full Excel exports for outside auditors.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Omnysync Digital Footprint Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">OMNY<span>SYNC</span></div>
+      <div class="footer-meta">Engineering Modern Enterprise Software & Autonomous Workflows</div>
+    </div>
+    <p class="footer-text">
+      <b>Confidential Specification Document</b> — Designed, architected, and maintained by <b>Omnysync</b>. All system state machine logic, field-service pipelines, and accounting frameworks contained in this document are proprietary development deliverables. Unauthorized duplication or redistribution is strictly prohibited.
+    </p>
+    <div style="font-size:11.5px;color:#64748b;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <span>© 2026 Omnysync. All Rights Reserved.</span>
+      <span>Document Release: v2.4 (Client Review Edition)</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
